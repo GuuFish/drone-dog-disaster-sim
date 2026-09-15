@@ -9,7 +9,8 @@
     "build": "vite build",
     "test": "node simulation.test.mjs",
     "test:browser": "node check.cjs",
-    "test:auto": "node auto-check.cjs"
+    "test:auto": "node auto-check.cjs",
+    "record:demo": "node record-demo.cjs"
   },
   "dependencies": {
     "react": "latest",

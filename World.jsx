@@ -339,7 +339,7 @@ export default function World(props){
     const range=camera.position.distanceTo(o.g.position),sc=d.type==='uav'?.025:.018;
     o.g.scale.setScalar(sc);
     const ls=Math.max(.07,Math.min(.82,range*.1));o.tag.scale.set(ls,ls*160/1024,1);
-   o.tag.position.set(o.g.position.x,o.g.position.y+Math.max(.018,range*.025),o.g.position.z);o.tag.visible=true;
+   o.tag.position.set(o.g.position.x,o.g.position.y+Math.max(.018,range*.025),o.g.position.z);o.tag.visible=followId!==d.id;
    o.mixer?.update(dt);if(p.running){o.rotors.forEach(r=>r.rotation.y+=dt*32);
     // diagonal trot: legs 0 and 3 swing together, 1 and 2 are opposite
     o.legs.forEach((leg,i)=>leg.rotation.x=delta.length()>.00005?Math.sin(t*9+((i===0||i===3)?0:Math.PI))*.34:0);}o.scan.visible=p.tasks?.some(task=>task.deviceId===d.id&&task.status==='执行中'&&task.hold>0)||false;o.scan.rotation.y=t;
@@ -358,14 +358,14 @@ export default function World(props){
    for(const [id,o] of markers)if(!p.events.some(e=>e.id===id)){dispose(o.g);o.tag&&dispose(o.tag);markers.delete(id);}
   for(const e of p.events){let o=markers.get(e.id);
    if(!o){const g=new THREE.Group();g.userData.id=e.id;scene.add(g);
-     const ring=mesh(new THREE.TorusGeometry(.5,.06,8,28),new THREE.MeshBasicMaterial({color:0xff9677}),g);ring.rotation.x=Math.PI/2;ring.position.y=.1;
-     const pillar=mesh(new THREE.ConeGeometry(.22,.7,10),new THREE.MeshBasicMaterial({color:0xf05d4f}),g);pillar.position.y=.5;
-     const plume=mesh(new THREE.IcosahedronGeometry(.4,1),new THREE.MeshBasicMaterial({color:e.kind==='gas'?0xa2b875:0x7f7770}),g);plume.position.y=.95;
+     const ring=mesh(new THREE.TorusGeometry(.2,.022,8,32),new THREE.MeshBasicMaterial({color:0xff9677}),g);ring.rotation.x=Math.PI/2;ring.position.y=.045;
+     const pillar=mesh(new THREE.ConeGeometry(.085,.28,12),new THREE.MeshBasicMaterial({color:0xf05d4f}),g);pillar.position.y=.2;
+     const plume=mesh(new THREE.IcosahedronGeometry(.15,1),new THREE.MeshBasicMaterial({color:e.kind==='gas'?0xa2b875:0x7f7770}),g);plume.position.y=.42;
      plume.visible=['fire','gas'].includes(e.kind);o={g,ring,pillar,plume,tag:null,tagStatus:''};markers.set(e.id,o);}
      const base=height(e.x,e.z),style=e.status==='已处理'||e.status==='已确认'?{ring:0x50e58d,pillar:0x20bd70}:e.status==='处理中'?{ring:0x62c9ff,pillar:0x258dd1}:e.status==='复核中'||e.status==='待复核'?{ring:0xffdc71,pillar:0xf0a52c}:e.status==='侦察中'?{ring:0x62ead4,pillar:0x19bdb2}:{ring:0xff9677,pillar:0xf05d4f};
      o.g.position.set(e.x,base,e.z);o.g.visible=true;o.ring.material.color.setHex(style.ring);o.pillar.material.color.setHex(e.id===p.selected?0xfff1aa:style.pillar);o.plume.material.color.setHex(style.pillar);
-     if(o.tagStatus!==e.status){if(o.tag)dispose(o.tag);o.tag=label(`${TYPES[e.kind]} · ${e.status}`,e.x,base+1.35,e.z,'#'+style.ring.toString(16).padStart(6,'0'),3.2,false);o.tagStatus=e.status;}
-     o.tag.position.set(e.x,base+1.35,e.z);o.tag.visible=o.g.visible;
+     if(o.tagStatus!==e.status){if(o.tag)dispose(o.tag);o.tag=label(`${TYPES[e.kind]} · ${e.status}`,e.x,base+.5,e.z,'#'+style.ring.toString(16).padStart(6,'0'),.18,false);o.tagStatus=e.status;}
+     o.tag.position.set(e.x,base+.5,e.z);o.tag.visible=o.g.visible;
      o.ring.scale.setScalar(e.status==='已处理'||e.status==='已确认'?1.08:1+Math.sin(t*3)*.14);o.plume.rotation.y=t*.4;}
   if(p.camera&&p.camera.seq!==cameraSeq){cameraSeq=p.camera.seq;const cfg=p.camera;if(free&&!['free','exitfree'].includes(cfg.mode))stopFree();if(cfg.mode!=='follow')followId=null;
     if(cfg.mode==='follow'){followId=cfg.deviceId;followPosition=null;move=null;camera.up.set(0,1,0);controls.enabled=true;const o=objects.get(followId);if(o){controls.target.copy(o.g.position);camera.position.copy(o.g.position).add(o.type==='dog'?new THREE.Vector3(.04,.025,.05):new THREE.Vector3(.06,.035,.075));followPosition=o.g.position.clone();}}

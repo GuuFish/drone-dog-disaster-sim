@@ -4,6 +4,14 @@
 
 一个面向课程设计与演示答辩的三维应急救援调度控制台：无人机负责区域搜索与空中侦察，机器狗负责地面抵近、复核和现场处理。
 
+## 演示视频
+
+[▶ 点击观看 1080p 完整演示（约 86 秒）](demo/skyward-demo.webm)
+
+[![天穹 SKYWARD 演示封面](demo/skyward-demo-poster.png)](demo/skyward-demo.webm)
+
+视频包含全域态势、设备集结中心、无人机动态跟随、灾情注入、指定侦察、机器狗 A* 地面复核、处理中、已处理自动收起和全部归位。视频由无界面 Edge 自动录制，不包含桌面画面或个人信息。
+
 ## 功能概览
 
 - 三维程序生成救援区域：山地、森林、河流、桥梁、农田、村庄、城区、工业区和设备集结中心。
@@ -30,9 +38,10 @@ npm run build
 npm test
 npm run test:browser
 npm run test:auto
+npm run record:demo
 ```
 
-两项浏览器测试需要 Microsoft Edge，且开发服务器已经启动。`npm run test:browser` 验证交互流程，`npm run test:auto` 验证自主搜索、自由视角、归位和移动端布局。
+两项浏览器测试和演示录制需要 Microsoft Edge，且开发服务器已经启动。`npm run test:browser` 验证交互流程，`npm run test:auto` 验证自主搜索、自由视角、归位和移动端布局。首次录制前执行 `npx playwright install ffmpeg` 安装 Playwright 自带的录制组件。
 
 ## 使用流程
 
@@ -69,6 +78,7 @@ npm run test:auto
 | `terrain.js` | 地形、建筑、河流、碰撞和 A* 寻路 |
 | `app.css` / `guide.css` / `follow.css` | 控制台、响应式布局和跟随信息卡样式 |
 | `public/models/` | 无人机 GLB 及素材授权说明 |
+| `record-demo.cjs` / `demo/` | 后台自动演练脚本、1080p WebM 成片与封面 |
 | `PROTOCOL.md` | 仿真端与未来业务平台之间的消息协议约定 |
 
 ## 说明
