@@ -1,0 +1,12 @@
+/* Compact telemetry card shown while the camera follows one device. */
+.tracking{display:flex;flex-direction:column;gap:10px;min-width:330px;max-width:430px;padding:12px 14px!important;text-align:left!important}
+.tracking-head{display:flex;align-items:center;gap:9px;white-space:nowrap}
+.tracking-head>span{color:#8fe4d1;font-size:11px}.tracking-head>span i{display:inline-block;width:6px;height:6px;margin-right:6px;border-radius:50%;background:#62d6be;box-shadow:0 0 9px #62d6be}
+.tracking-head>b{color:#f3fffc;font-size:13px;overflow:hidden;text-overflow:ellipsis}
+.tracking-head button{margin-left:auto;padding:6px 9px;font-size:10px}
+.tracking-details{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px 14px;border-top:1px solid #75b8b033;padding-top:9px}
+.tracking-details div{min-width:0;display:flex;flex-direction:column;gap:3px}
+.tracking-details small{font-size:8px;color:#81a7ae;letter-spacing:.6px;white-space:nowrap}
+.tracking-details b{color:#f1fbf9;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tracking-details b.warning{color:#ffb879}
+@media(max-width:760px){.tracking{min-width:0;width:calc(100vw - 20px);padding:10px!important}.tracking-details{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 12px}.tracking-head{gap:6px}.tracking-head>b{font-size:11px}}

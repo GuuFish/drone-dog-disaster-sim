@@ -1,0 +1,23 @@
+{
+  "name": "drone-dog-disaster-sim",
+  "version": "1.0.0",
+  "private": false,
+  "description": "无人机与机器狗空地协同应急救援三维调度仿真平台",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "test": "node simulation.test.mjs",
+    "test:browser": "node check.cjs",
+    "test:auto": "node auto-check.cjs"
+  },
+  "dependencies": {
+    "react": "latest",
+    "react-dom": "latest",
+    "three": "latest",
+    "vite": "latest"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
+  }
+}
