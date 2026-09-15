@@ -6,4 +6,6 @@
 - 内容：全景、设备中心、无人机跟随、灾情注入、空中侦察、机器狗地面复核、处理闭环与全部归位
 - 录制方式：Playwright + Microsoft Edge 无界面模式
 
+GitHub Pages 在线播放地址：<https://guufish.github.io/drone-dog-disaster-sim/>。
+
 开发服务器运行在 `http://127.0.0.1:5173` 时，可在项目根目录执行 `npm run record:demo` 重新生成视频和封面。录制脚本使用独立浏览器上下文并清空该上下文的本地存档，不会修改日常浏览器数据。

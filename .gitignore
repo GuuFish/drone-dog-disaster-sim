@@ -2,8 +2,8 @@ node_modules/
 dist/
 .github-sync/
 *.png
-!demo/skyward-demo-poster.png
-demo/raw/
+!docs/skyward-demo-poster.png
+docs/raw/
 *.log
 .DS_Store
 Thumbs.db

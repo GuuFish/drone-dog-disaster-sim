@@ -3,7 +3,7 @@ const {mkdirSync,copyFileSync,rmSync}=require('node:fs');
 const {join}=require('node:path');
 
 const baseUrl=process.env.DEMO_URL||'http://127.0.0.1:5173';
-const outputDir=join(__dirname,'demo'),rawDir=join(outputDir,'raw');
+const outputDir=join(__dirname,'docs'),rawDir=join(outputDir,'raw');
 const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 
 async function caption(page,title,subtitle='',center=false){

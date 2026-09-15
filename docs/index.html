@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07151c">
+  <title>天穹 SKYWARD · 项目演示</title>
+  <style>
+    :root { color-scheme: dark; font-family: Inter, "Microsoft YaHei", system-ui, sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; color: #d9e9eb; background: radial-gradient(circle at 20% 0%, #173d45 0, transparent 35%), radial-gradient(circle at 90% 75%, #17302f 0, transparent 30%), #07151c; }
+    main { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 48px 0 36px; }
+    header { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+    .eyebrow { margin: 0 0 8px; color: #65d9c1; font-size: 12px; font-weight: 800; letter-spacing: 4px; }
+    h1 { margin: 0; font-size: clamp(26px, 4vw, 46px); letter-spacing: 1px; }
+    .meta { color: #86a4ad; white-space: nowrap; }
+    .player { overflow: hidden; padding: 10px; border: 1px solid #31515b; border-radius: 18px; background: #0d2028; box-shadow: 0 28px 90px #0008; }
+    video { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: 11px; background: #03090d; }
+    .details { display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: center; padding: 22px 4px 0; }
+    .details p { margin: 0; color: #91aab2; line-height: 1.8; }
+    a { color: #a9f0df; text-decoration: none; border: 1px solid #3c746d; border-radius: 9px; padding: 10px 15px; }
+    a:hover { color: #07151c; background: #71dbc5; }
+    footer { margin-top: 38px; color: #56737d; font-size: 12px; }
+    @media (max-width: 680px) { main { padding-top: 26px; } header, .details { display: block; } .meta { margin-top: 12px; } .details p { margin-bottom: 18px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <p class="eyebrow">SKYWARD / PROJECT DEMO</p>
+        <h1>无人机 · 机器狗空地协同仿真</h1>
+      </div>
+      <div class="meta">1080p · 约 86 秒</div>
+    </header>
+    <section class="player">
+      <video controls preload="metadata" poster="./skyward-demo-poster.png">
+        <source src="./skyward-demo.webm" type="video/webm">
+        当前浏览器不支持 WebM 视频播放。
+      </video>
+    </section>
+    <section class="details">
+      <p>包含全域态势、设备集结中心、无人机动态跟随、灾情注入、指定侦察、机器狗地面复核、处理闭环与全部归位。</p>
+      <a href="https://github.com/GuuFish/drone-dog-disaster-sim">查看项目源码</a>
+    </section>
+    <footer>《企业应用开发实践》选题三 · 应急救援空地协同调度仿真平台</footer>
+  </main>
+</body>
+</html>
