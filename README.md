@@ -4,11 +4,11 @@
 
 一个面向课程设计与演示答辩的三维应急救援调度控制台：无人机负责区域搜索与空中侦察，机器狗负责地面抵近、复核和现场处理。
 
-## 在线演示视频
+## 演示视频
 
-[▶ 在网页中直接播放 1080p 完整演示（约 86 秒）](https://guufish.github.io/drone-dog-disaster-sim/)
+https://github.com/user-attachments/assets/8a064f14-9063-416b-81fc-063ebd6c0c86
 
-[![天穹 SKYWARD 演示封面](docs/skyward-demo-poster.png)](https://guufish.github.io/drone-dog-disaster-sim/)
+[备用在线播放页](https://guufish.github.io/drone-dog-disaster-sim/)
 
 视频包含全域态势、设备集结中心、无人机动态跟随、灾情注入、指定侦察、机器狗 A* 地面复核、处理中、已处理自动收起和全部归位。视频由无界面 Edge 自动录制，不包含桌面画面或个人信息。
 
