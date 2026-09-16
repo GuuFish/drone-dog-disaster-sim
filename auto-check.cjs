@@ -10,7 +10,7 @@ const {chromium,expect}=require('@playwright/test');
   const page=await context.newPage(),errors=[];
   page.on('pageerror',error=>errors.push(error.message));
   page.on('dialog',dialog=>dialog.accept());
-  await page.goto('http://localhost:5173');
+  await page.goto(process.env.SIM_URL||'http://localhost:5174');
   await page.getByLabel('仿真速度').selectOption('300');
   await page.getByRole('button',{name:'▶ 全部启动'}).click();
   await page.getByRole('button',{name:/灾情与任务/}).click();

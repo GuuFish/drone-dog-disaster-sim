@@ -1,9 +1,11 @@
 import assert from 'node:assert/strict';
-import {fresh,addEvent,dispatch,step,cancelTask,regressionScenario,startDevices,returnDevices,createDevice,berth,normalizeBerths,coverageRoute,COVERAGE,LOW_BATTERY,DOG_MAX_DISTANCE} from './simulation.js';
+import {fresh,addEvent,dispatch,step,cancelTask,regressionScenario,startDevices,returnDevices,createDevice,berth,normalizeBerths,coverageRoute,COVERAGE,LOW_BATTERY,DOG_MAX_DISTANCE,platformDeviceCode,task} from './simulation.js';
 import {BASE,pathfind,walkable,distance,routeLength,WORLD,river,buildings,height,surfaceHeight} from './terrain.js';
 let s=addEvent(fresh(),'person',-2400,-1500,'高'),id=s.events[0].id;
 assert.deepEqual(s.devices.map(d=>d.home),[berth('uav',0),berth('uav',1),berth('dog',0),berth('dog',1)]);
 assert.ok(s.devices.every(d=>distance(d,d.home)<.01));
+assert.deepEqual(s.devices.map(platformDeviceCode),['SIM-UAV-001','SIM-UAV-002','SIM-ROBOT-001','SIM-ROBOT-002']);
+assert.ok(s.sessionId&&s.sequence&&s.platformMode===false);
 // UAVs and dogs must park on opposite sides of the apron
 assert.ok(s.devices.filter(d=>d.type==='uav').every(d=>d.home.x<BASE.x-20));
 assert.ok(s.devices.filter(d=>d.type==='dog').every(d=>d.home.x>BASE.x+20));
@@ -72,5 +74,21 @@ operations=returnDevices(operations);for(let i=0;i<200;i++)operations=step(opera
  // and a recall command still stops it
  const recalled=returnDevices(loop,id);
  assert.equal(recalled.devices.find(d=>d.id===id).enabled,false);
+}
+// platform mode keeps local auto-dispatch off and preserves platform task IDs in feedback
+{
+ let linked=fresh();linked.platformMode=true;linked=startDevices(linked);
+ // 平台联动模式下无人机仍执行自主巡航搜索（auto=true），但机器狗绝不被本地自动派单
+ assert.ok(linked.auto,'平台联动模式下无人机应保持自主巡航搜索');
+ let g=addEvent(linked,'person',BASE.x+220,BASE.z+140,'高');
+ g.events[0].status='待复核';
+ for(const d of g.devices)d.enabled=true;
+ for(let i=0;i<400;i++)g=step(g,2);
+ assert.equal(g.tasks.find(t=>g.devices.find(d=>d.id===t.deviceId)?.type==='dog'),undefined,
+   '平台联动模式下机器狗不应被本地自动派单');
+ const uav=linked.devices.find(d=>d.type==='uav');
+ task(linked,uav,'空中侦察',[{x:uav.x+100,z:uav.z}],null,{taskId:77,taskCode:'TSK-LINK-001',commandId:'CMD-LINK-001'});
+ const ack=linked.messages.find(m=>m.type==='task.ack');
+ assert.equal(ack.payload.taskId,77);assert.equal(ack.payload.taskCode,'TSK-LINK-001');assert.equal(ack.correlationId,'TSK-LINK-001');
 }
 console.log('PASS: 4+ km target, realistic ETA, completion, full-coverage looping search with recharge, bridge routing, air clearance and dog obstacle avoidance');

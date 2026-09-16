@@ -8,7 +8,7 @@ const {chromium,expect}=require('@playwright/test');
   const page=await context.newPage(),errors=[];
   page.on('pageerror',error=>errors.push(error.message));
   page.on('dialog',dialog=>dialog.accept());
-  await page.goto('http://localhost:5173');
+  await page.goto(process.env.SIM_URL||'http://localhost:5174');
 
   await expect(page.locator('.device-card')).toHaveCount(4);
   await expect(page.locator('.device-card')).toContainText(['停靠位 01','停靠位 02','停靠位 03','停靠位 04']);

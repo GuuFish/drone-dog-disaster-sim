@@ -2,7 +2,7 @@ const {chromium,expect}=require('@playwright/test');
 const {mkdirSync,copyFileSync,rmSync}=require('node:fs');
 const {join}=require('node:path');
 
-const baseUrl=process.env.DEMO_URL||'http://127.0.0.1:5173';
+const baseUrl=process.env.DEMO_URL||'http://127.0.0.1:5174';
 const outputDir=join(__dirname,'docs'),rawDir=join(outputDir,'raw');
 const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 
