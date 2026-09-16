@@ -40,7 +40,7 @@
 }
 ```
 
-场景采用米制局部坐标：x/z 为水平位置，y 为相对场景基准面的高度。地面高度来自共享地形函数；无人机离地高度应为 y − terrainHeight。时间信封使用真实 UTC 时间；仿真进度另用 `simulationTimeSeconds`，不可混淆。真实经纬度接入后通过场景锚点转换，不把局部坐标直接当成经纬度。
+场景采用米制局部坐标：x/z 为水平位置，y 为绝对海拔。地面高度来自共享地形函数；无人机离地高度为 y − terrainHeight。时间信封使用真实 UTC 时间；仿真进度另用 `simulationTimeSeconds`，不可混淆。平台以 116.400000°E、39.910000°N 为演示锚点做固定换算，不把局部坐标直接冒充真实 GIS 定位。
 
 ## 消息与建议 Kafka topic
 
@@ -69,4 +69,4 @@
 
 ## 后续接入顺序
 
-先实现后端消费 telemetry/discovered，再把 `dispatch` 替换为平台下发 task.command，最后接入 ack/progress/result、持久化、幂等及故障重试。本文件是接口设计约定，以上网络传输和投递保证尚未实现。
+当前已实现浏览器仿真端通过 Spring Boot 接入层上报 register/telemetry/discovered/ack/progress/result，并领取平台 task.command。默认开发模式使用本地命令队列；启用 `integration` 配置后，消息进入 Kafka，由消费者归档 MongoDB、写入 Elasticsearch，任务指令也经 Kafka 再投递到仿真端。HDFS 由平台上传接口负责文件字节存储。
